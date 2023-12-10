@@ -1,3 +1,4 @@
+using InsuranceServiceApi.Clients.StorageServiceClient.Interfaces;
 using InsuranceServiceApi.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,14 +8,19 @@ namespace InsuranceServiceApi.Controllers
     [Route("api/customerinsurances")]
     public class CustomerInsuranceController : ControllerBase
     {
-        public CustomerInsuranceController()
+        private IStorageServiceApiClient _storageClient;
+        public CustomerInsuranceController(IStorageServiceApiClient storageClient)
         {
-            //Inject client interface to access storage.
+            _storageClient = storageClient;
         }
     [HttpGet("customerNumber")]
     public async Task<IActionResult> GetCustomerInsuranceAsync(string customerNumber)
-    {        
-        return Ok();
+    {       
+
+        //Should be validation on the cusomernumber!
+        //If non valid customerNumber than we can return a BadRequest().
+        var response = await _storageClient.GetCustomerInsuranceAsync(customerNumber);
+        return Ok(response);
     }
 
     [HttpPost]

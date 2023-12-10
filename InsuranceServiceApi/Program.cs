@@ -1,3 +1,6 @@
+using InsuranceServiceApi.Clients.StorageServiceClient;
+using InsuranceServiceApi.Clients.StorageServiceClient.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+
+// Add the HttpClient service
+builder.Services.AddHttpClient<IStorageServiceApiClient, StorageServiceApiClient>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5098"); //Base url should be in an applicationSetting.
+});
 
 var app = builder.Build();
 
