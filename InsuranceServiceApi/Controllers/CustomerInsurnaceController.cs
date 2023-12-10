@@ -13,12 +13,12 @@ namespace InsuranceServiceApi.Controllers
         }
     [HttpGet("customerNumber")]
     public async Task<IActionResult> GetCustomerInsuranceAsync(string customerNumber)
-    {
+    {        
         return Ok();
     }
 
-    [HttpGet("customerNumber")]
-    public async Task<IActionResult> CreateCustomerInsuranceAsync(CreateCustomerInsuranceRequest request)
+    [HttpPost]
+    public async Task<IActionResult> CreateCustomerInsuranceAsync([FromBody] CreateCustomerInsuranceRequest request)
     {
         return Ok();
     }
